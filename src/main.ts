@@ -23,7 +23,10 @@ bootstrap();
     Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol
     
     para corrigir basta executar o seguinte comando no seu mysql :
-    
+
     ALTER USER 'seu_usuario'@'seu_host' IDENTIFIED WITH 'mysql_native_password' BY 'sua_senha';
 
  */
+
+
+    //PAREI NA AULA 03 EM 18:00
