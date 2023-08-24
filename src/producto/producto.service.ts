@@ -26,7 +26,7 @@ export class ProductoService {
     async findById(id: number): Promise<ProductoEntity>{
         const producto = await this.productoRepository.findOne({where:{id}});
 
-        if(producto ){
+        if(!producto ){
             throw new NotFoundException({message:'Produto não localizado '})
         }
 
