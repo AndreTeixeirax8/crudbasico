@@ -14,7 +14,7 @@ async function bootstrap() {
 bootstrap();
 
 // Projeto crud basico com base no curso do youyube
-//https://www.youtube.com/watch?v=01SYuDofl8w&list=PL4bT56Uw3S4zIAOX1ddx8oJS6jaD43vZC&index=5
+//https://www.youtube.com/watch?v=FWh9XyYICjo&list=PL4bT56Uw3S4zIAOX1ddx8oJS6jaD43vZC&index=6
 
 /**ATENÇÃO!!! 
  * AO executar p projeto a  primeira vez pode dar um erro de conexão do mysql 
@@ -29,4 +29,4 @@ bootstrap();
  */
 
 
-    //falta AULA 05 
+    //falta AULA 06 
