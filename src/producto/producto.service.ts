@@ -43,9 +43,8 @@ export class ProductoService {
     async create(dto:ProductoDto): Promise<any>{
         const exists =await this.findByNome(dto.name)
         if(exists)  throw new BadRequestException({message:'esse nome já existe'})
-        const producto =  this.productoRepository.create(dto)
-        await this.productoRepository.save(producto);
-        return new MessageDto('produto criado')
+        this.productoRepository.save(dto);
+        return  {message:'Produto criado'}
 
     }
 
