@@ -31,5 +31,5 @@ bootstrap();
 
     //NOVA PARTE 
     //https://github.com/cavanosa/nestjs-backend
-    //https://www.youtube.com/watch?v=kX4PRPVSAk8&list=PL4bT56Uw3S4ynnBWONPYz0FPyMLZmTF8w&index=3
-    //INICIO AULA 3
+    //https://www.youtube.com/watch?v=xPOKOs6ck8g&list=PL4bT56Uw3S4ynnBWONPYz0FPyMLZmTF8w&index=5
+    //INICIO AULA 5 

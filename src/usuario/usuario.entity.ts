@@ -1,5 +1,6 @@
 import { RolEntity } from "src/rol/rol.entity";
-import { Column, Entity, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {hash} from 'bcryptjs'
 
 @Entity({name:'usuario'})
 export class UsuarioEntity{
@@ -15,11 +16,16 @@ export class UsuarioEntity{
    @Column({type:'varchar',length:50, nullable:false,unique:true})
    email:string;
 
-   @Column({type:'varchar',length:50, nullable:false})
+   @Column({type:'varchar',length:100, nullable:false})
    password:string;
 
    @ManyToMany(type => RolEntity, rol => rol.usuarios,{eager:true})
    roles:RolEntity[];
 
-
+   @BeforeInsert()
+   @BeforeUpdate()
+    async hashPassword(){
+        if(!this.password)return;
+        this.password = await hash(this.password,10);
+    }
 }
