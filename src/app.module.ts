@@ -7,6 +7,7 @@ import { DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER } from './config/co
 import { ProductoModule } from './producto/producto.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { RolModule } from './rol/rol.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -34,7 +35,9 @@ import { RolModule } from './rol/rol.module';
 
   UsuarioModule,
 
-  RolModule
+  RolModule,
+
+  AuthModule
 ],
   controllers: [AppController],
   providers: [AppService],
