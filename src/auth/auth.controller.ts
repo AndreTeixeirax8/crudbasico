@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { NovoUsuarioDto } from './dto/novo-usuario.dto';
+import { LoginUsuarioDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,6 +17,12 @@ export class AuthController {
     @Post('novo')
     create(@Body() dto:NovoUsuarioDto){
         return this.authService.create(dto)
+    }
+
+    @UsePipes(new ValidationPipe({whitelist:true}))
+    @Post('login')
+    login(@Body() dto:LoginUsuarioDto){
+        return this.authService.login(dto)
     }
 
 }

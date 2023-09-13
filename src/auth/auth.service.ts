@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RolEntity } from 'src/rol/rol.entity';
 import { RolRepository } from 'src/rol/rol.repository';
@@ -7,6 +7,10 @@ import { UsuarioRepository } from 'src/usuario/usuario.repository';
 import { AuthRepository } from './auth.repository';
 import { NovoUsuarioDto } from './dto/novo-usuario.dto';
 import { RolName } from 'src/rol/rol.enum';
+import { LoginUsuarioDto } from './dto/login.dto';
+import { compare } from 'bcryptjs';
+import { PayloadInterface } from './payload.interface';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +19,8 @@ export class AuthService {
         @InjectRepository(RolEntity)
         private readonly rolRepository:RolRepository,
         @InjectRepository(UsuarioEntity)
-        private readonly authRepository:AuthRepository
+        private readonly authRepository:AuthRepository,
+        private readonly jwtService: JwtService,
     ){}
 
     async getall(): Promise<UsuarioEntity[]>{
@@ -34,6 +39,28 @@ export class AuthService {
         user.roles = [rolUser]
         return await this.authRepository.save(user)
 
+    }
+
+
+    async login(dto:LoginUsuarioDto): Promise<any>{
+        const {userName} = dto;
+        const usuario = await this.authRepository.findOne({
+            where:[{
+                userName:userName
+            },{email:userName}]
+        })
+        if(!usuario) return new UnauthorizedException({message:'usuario inexistente'})
+        const passwordOk = await compare(dto.password,usuario.password)
+        if(!passwordOk) return new UnauthorizedException({message:'senha errada'})
+
+        const payload: PayloadInterface ={
+            id:usuario.id,
+            userName:usuario.userName,
+            email:usuario.email,
+            roles: usuario.roles.map(rol => rol.rolName as RolName)
+        }
+        const token =  await this.jwtService.sign(payload)
+        return {token};
     }
 
 }
