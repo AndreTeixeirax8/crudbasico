@@ -67,6 +67,13 @@ export class AuthService {
     async refresh(dto:TokenDto): Promise<any>
      {
            const usuario =await this.jwtService.decode(dto.token)
-           return usuario;       
+           const payload: PayloadInterface = {
+                id: usuario[`id`],
+                userName: usuario[`userName`],
+                email: usuario[`email`],
+                roles: usuario [`roles`]
+           } 
+           const token =  await this.jwtService.sign(payload)
+           return {token};     
       }
 }
