@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/c
 import { AuthService } from './auth.service';
 import { NovoUsuarioDto } from './dto/novo-usuario.dto';
 import { LoginUsuarioDto } from './dto/login.dto';
+import { TokenDto } from './dto/token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,6 +24,11 @@ export class AuthController {
     @Post('login')
     login(@Body() dto:LoginUsuarioDto){
         return this.authService.login(dto)
+    }
+
+    @Post('refresh')
+    refresh(@Body() dto:TokenDto){
+        return this.authService.refresh(dto)
     }
 
 }
