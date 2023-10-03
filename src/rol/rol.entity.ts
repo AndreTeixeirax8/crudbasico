@@ -1,6 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RolName } from "./rol.enum";
-import { UsuarioEntity } from "src/usuario/usuario.entity";
+import { UsuarioEntity } from "src/usuario/entities/usuario.entity";
 import { type } from "os";
 
 @Entity({name:'rol'})

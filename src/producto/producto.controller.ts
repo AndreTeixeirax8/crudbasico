@@ -1,4 +1,5 @@
-import { Controller,Param,Get,Post,Body,Put,Delete,ParseIntPipe, UsePipes, ValidationPipe, UseGuards,UnauthorizedException } from '@nestjs/common';
+import { Controller,Param,Get,Post,Body,Put,Delete,ParseIntPipe, UsePipes,
+     ValidationPipe, UseGuards,UnauthorizedException } from '@nestjs/common';
 import { ProductoService } from './producto.service';
 import { ProductoDto } from './dto/producto.dto';
 import { AuthGuard } from '@nestjs/passport';

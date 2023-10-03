@@ -2,8 +2,8 @@ import { Injectable, InternalServerErrorException, NotFoundException, Unauthoriz
 import { InjectRepository } from '@nestjs/typeorm';
 import { RolEntity } from 'src/rol/rol.entity';
 import { RolRepository } from 'src/rol/rol.repository';
-import { UsuarioEntity } from 'src/usuario/usuario.entity';
-import { UsuarioRepository } from 'src/usuario/usuario.repository';
+import { UsuarioEntity } from 'src/usuario/entities/usuario.entity';
+import { UsuarioRepository } from 'src/usuario/repositories/usuario.repository';
 import { AuthRepository } from './auth.repository';
 import { NovoUsuarioDto } from './dto/novo-usuario.dto';
 import { RolName } from 'src/rol/rol.enum';
