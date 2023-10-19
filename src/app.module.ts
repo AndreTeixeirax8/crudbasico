@@ -10,10 +10,10 @@ import {
   DB_PORT, 
   DB_USER, 
 } from './config/constants';
-import { ProductoModule } from './producto/produto.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { RolModule } from './rol/rol.module';
 import { AuthModule } from './auth/auth.module';
+import { ProdutoModule } from './produto';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -24,9 +24,9 @@ import { AuthModule } from './auth/auth.module';
   TypeOrmModule.forRootAsync({
     imports:[ConfigModule],
     useFactory:(configService:ConfigService)=>({
-      type:'mysql',
+      type:'postgres',//'mysql',
       host:configService.get<string>(DB_HOST),
-      port:3306,//+configService.get<number>(DB_PORT),
+      port:5432,//3306,//+configService.get<number>(DB_PORT),
       username: configService.get<string>(DB_USER),
       password: configService.get<string>(DB_PASSWORD),
       database:configService.get<string>(DB_DATABASE),
@@ -37,7 +37,7 @@ import { AuthModule } from './auth/auth.module';
     inject:[ConfigService]
   }),
 
-  ProductoModule,
+  ProdutoModule,
 
   UsuarioModule,
 

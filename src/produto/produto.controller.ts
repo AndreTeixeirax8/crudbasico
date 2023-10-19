@@ -1,5 +1,5 @@
 import { Controller,Param,Get,Post,Body,Put,Delete,ParseIntPipe, UsePipes,
-     ValidationPipe, UseGuards,UnauthorizedException } from '@nestjs/common';
+     ValidationPipe, UseGuards,UnauthorizedException,Query } from '@nestjs/common';
 import { ProductoService } from './produto.service';
 import { ProductoDto } from './dto/producto.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -8,26 +8,31 @@ import { GetPrincipal } from 'src/decorators/get-principal.decorator';
 import { RolesGuard } from 'src/guards/rol.guard';
 import { RolDecorator } from 'src/decorators/rol.decorator';
 import { RolName } from 'src/rol/rol.enum';
+import { PaginateQuery, Paginated } from 'nestjs-paginate';
+import { ProductoEntity } from './entities';
 
 @Controller('producto')
 export class ProductoController {
 
     constructor(private readonly productoService:ProductoService){}
 
-    /*@UseGuards(JwtAuthGuard)
-    @Get()
-    async getAll(@GetPrincipal() user:any){
-        //só admin tem acesso
-        if(user.roles.indexOf('admin')< 0) throw new UnauthorizedException({message:'sem autorização'}) 
-        return await this.productoService.getAll()
-    }*/
-
+  
+/*
     @RolDecorator(RolName.ADMIN,RolName.USER)
     @UseGuards(JwtAuthGuard,RolesGuard)
     @Get()
     async getAll(){
+    
         
         return await this.productoService.getAll()
+    }*/
+
+    
+     @RolDecorator(RolName.ADMIN,RolName.USER)
+    @UseGuards(JwtAuthGuard,RolesGuard)
+    @Get()
+    async  getAll(@Query()query: PaginateQuery): Promise<Paginated<ProductoEntity>> {
+        return this.productoService.getAll(query);
     }
 
     @RolDecorator(RolName.ADMIN,RolName.USER)

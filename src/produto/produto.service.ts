@@ -4,6 +4,16 @@ import { ProductoEntity } from './entities/produto.entity';
 import { ProductoRepository } from './produto.repository';
 import { ProductoDto } from './dto/producto.dto';
 import { MessageDto } from 'src/common/message.dto';
+import { FindManyOptions } from 'typeorm';
+import {
+  FilterOperator,
+  paginate,
+  Paginated,
+  PaginateQuery,
+} from 'nestjs-paginate';
+
+
+
 
 @Injectable()
 export class ProductoService {
@@ -13,6 +23,7 @@ export class ProductoService {
     ){}
 
 
+    /*
     async getAll():Promise<ProductoEntity[]>{
         const list =await this.productoRepository.find();
 
@@ -21,8 +32,29 @@ export class ProductoService {
         }
 
         return list
-    }
+    }*/
+  
+    async getAll(query: PaginateQuery): Promise<Paginated<ProductoEntity>> {
+      console.log("função getall")
+      return await paginate(query, this.productoRepository, {
+        select: [
+          'id',
+          'name',
+          'price'
+        ],
+        sortableColumns: [
+          'name',
+        ],
+        nullSort: 'last',
+        searchableColumns: ['name'],
+        defaultSortBy: [['name', 'ASC']],
+        defaultLimit: 10,
+       filterableColumns: {
+          id: [FilterOperator.EQ, FilterOperator.IN],
+       },
+      });}
 
+  
 
     async findById(id: number): Promise<ProductoEntity>{
         const producto = await this.productoRepository.findOne({where:{id}});
