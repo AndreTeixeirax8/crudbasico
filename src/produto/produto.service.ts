@@ -47,8 +47,8 @@ export class ProductoService {
         ],
         nullSort: 'last',
         searchableColumns: ['name'],
-        defaultSortBy: [['name', 'ASC']],
-        defaultLimit: 10,
+        defaultSortBy: [['id', 'ASC']],
+        defaultLimit: 5,
        filterableColumns: {
           id: [FilterOperator.EQ, FilterOperator.IN],
        },
