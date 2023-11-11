@@ -1,16 +1,15 @@
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class NoticiaDto{
-
+export class NoticiaDto {
     @IsNotEmpty()
     @IsString()
-    titulo:string;
+    titulo: string;
 
     @IsNotEmpty()
     @IsString()
     conteudo: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsDate()
     dataPublicacao: Date;
 
