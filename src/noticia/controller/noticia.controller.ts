@@ -33,8 +33,8 @@ export class NoticiaController {
         return await this.noticiaService.create(dto);
     }
 
-    @RolDecorator(RolName.ADMIN, RolName.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard)
+    // @RolDecorator(RolName.ADMIN, RolName.USER)
+    // @UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
     async buscaTodos() {
         return await this.noticiaService.buscaTodos();
